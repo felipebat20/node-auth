@@ -9,13 +9,13 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUID,
       },
-      nome: {
+      name: {
         type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING
       },
-      senha: {
+      password: {
         type: Sequelize.STRING
       },
       createdAt: {
