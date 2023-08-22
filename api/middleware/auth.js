@@ -1,5 +1,5 @@
 require('dotenv/config');
-const { verify } = require('jsonwebtoken');
+const { verify, decode } = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
@@ -12,7 +12,14 @@ module.exports = async (req, res, next) => {
 
   try {
     await verify(accessToken, process.env.JWT_SECRET_KEY);
+
+    const { id, email } = await decode(accessToken);
+
+    req.userId = id;
+    req.userEmail = email;
+
+    return next();
   } catch (error) {
-    res.status(401).send('User unauthorized');
+    res.status(401).send('User unauthenticated');
   }
 }
