@@ -1,7 +1,11 @@
 const { Router } = require('express');
+
 const UserController = require('../controllers/UserController');
+const auth = require('../middleware/auth');
 
 const router = Router();
+
+router.use(auth);
 
 router
   .post('/users', UserController.store)

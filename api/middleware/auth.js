@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
 
   if (! token) {
-    res.status(401).send('Missing access token');
+    return res.status(401).send('Missing access token');
   }
 
   const [, accessToken] = token.split(' ');
