@@ -60,7 +60,7 @@ class UserService {
   }
 
   async index(dto) {
-    const users = db.users.findAll();
+    const users = await db.users.findAll();
 
     return users;
   }
