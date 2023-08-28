@@ -1,12 +1,26 @@
 const db = require("../models");
+const uuid = 'uuid';
 
-const createNewRole = async (new_role) => {
-  const role = await db.roles.create({
-    name: new_role.name,
-    description: new_role.description,
-  });
+const createNewRole = async (dto) => {
+  const role = db.roles.findOne({ where: { name: dto.name }});
 
-  return role;
+  if (role) {
+    throw new Error('Role has been registered!');
+  }
+
+  try {
+    const new_role = await db.roles.create({
+      id: uuid.v4(),
+      name: dto.name,
+      description: dto.description,
+    });
+
+    return new_role;
+  } catch (err) {
+    throw new Error('Error on register new role');
+  }
+
+  return new_role;
 }
 
 const getAllRoles = async (dto) => {
