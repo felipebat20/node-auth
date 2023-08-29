@@ -5,8 +5,9 @@ const { sign } = require('jsonwebtoken');
 
 class AuthService {
   async login(dto) {
+
     const user = await db.users.findOne({
-      attibutes: ['id', 'email', 'password'],
+      attributes: ['id', 'email', 'password'],
       where: {
         email: dto.email,
       },
@@ -22,7 +23,7 @@ class AuthService {
       throw new Error('Invalid password or email');
     }
 
-    const accessToken = sign({
+    const accessToken = await sign({
       id: user.id,
       email: user.email,
     }, process.env.JWT_SECRET_KEY, {
