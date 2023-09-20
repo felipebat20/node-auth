@@ -14,7 +14,7 @@ class ProdutoService {
         }
 
         try {
-            const newProduto = await database.produtos.create({ 
+            const newProduto = await database.produtos.create({
                 id: uuidv4(),
                 nome: dto.nome,
                 descricao: dto.descricao,
