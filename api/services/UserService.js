@@ -60,7 +60,22 @@ class UserService {
   }
 
   async index(dto) {
-    const users = await db.users.findAll();
+    const users = await db.users.findAll({
+      include: [
+        {
+          model: db.roles,
+          as: 'user_role',
+          attributes: ['id', 'name', 'description'],
+          through: { attributes: [] },
+        },
+        {
+          model: db.permissions,
+          as: 'user_permission',
+          attributes: ['id', 'name', 'description'],
+          through: { attributes: [] },
+        },
+      ],
+    });
 
     return users;
   }
@@ -68,6 +83,20 @@ class UserService {
   async show({ id }) {
     const user = await db.users.findOne({
       where: { id },
+      include: [
+        {
+          model: db.roles,
+          as: 'user_role',
+          attributes: ['id', 'name', 'description'],
+          through: { attributes: [] },
+        },
+        {
+          model: db.permissions,
+          as: 'user_permission',
+          attributes: ['id', 'name', 'description'],
+          through: { attributes: [] },
+        },
+      ],
     });
 
     if (! user) {

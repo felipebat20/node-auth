@@ -9,4 +9,3 @@ router
   .post('/security/permissions-roles', SecurityController.storeRolePermissions);
 
 module.exports = router;
-
