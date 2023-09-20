@@ -5,6 +5,7 @@ const user = require('./user')
 const auth = require('./authRoute')
 const role = require('./role')
 const permission = require('./permission')
+const security = require('./securityRoute')
 
 module.exports = app => {
   app.use(
@@ -14,5 +15,6 @@ module.exports = app => {
     produto,
     role,
     permission,
+    security,
   )
 }
